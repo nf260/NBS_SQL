@@ -220,6 +220,10 @@ A.Episode_Number, Primary_Care_Trust
 
 ## Multiple births check
 
+### Requirements
+Identification errors are more common for twins, triplets, or other multiple births in newborn screening than for singleton births.
+
+The report aims to identify twins (
 ### SQL
 
 ```sql
