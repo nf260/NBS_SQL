@@ -29,11 +29,14 @@ END AS WARNING_MESSAGE
 , HCP.PCTCode AS GP_CCG
 , PC.Primary_Care_Trust->Code AS PATIENT_ADDRESS_CCG
 , PC.Address_Postcode
+##### Suggests correct child health department based on CCG code
 , CASE
+# Case when not using the expected patient address CCG code
 WHEN (PC.Primary_Care_Trust->Code IS NOT NULL
           AND PC.Primary_Care_Trust->Code IN('06H','06Y','06W','07J','06V','06L','07K','06M','07H','06T','06Q','07G','99E','99F','99G','06K','06F','06N','06P','04F','03T','04D','99D','04Q','13Q')
           AND DLE.Doc_Ref_Ptr->Hospital_Doctor_Code <> PC.Primary_Care_Trust->Code
           ) THEN PC.Primary_Care_Trust->Code
+# CCGs for areas covered by Birmginham, GOSH, St Thomas' or Sheffield screening labs
 WHEN (PC.Primary_Care_Trust->Code IN('04X','04Y','05A','05C','05D','05F','05G','05H','05J','05L','05N','05P','05Q','05R','05T','05V','05W','05X','05Y','06A','06D','13P')
           AND DLE.Doc_Ref_Ptr->Hospital_Doctor_Code NOT IN('BIRM')
           ) THEN 'BIRM'
@@ -46,15 +49,18 @@ WHEN (PC.Primary_Care_Trust->Code IN('07N','07Q','08A','08K','08L','08Q','09C','
 WHEN (PC.Primary_Care_Trust->Code IN('02P','02Q','02X','03H','03K','03L','03N','03V','03W','03X','03Y','04C','04E','04G','04H','04J','04K','04L','04M','04N','04R','04V')
           AND DLE.Doc_Ref_Ptr->Hospital_Doctor_Code NOT IN('SHEFF')
           ) THEN 'SHEFF'
+# Case for when the report doesn't know the correct screning lab
 WHEN (PC.Primary_Care_Trust->Code IS NOT NULL
           AND PC.Primary_Care_Trust->Code NOT IN('06H','06Y','06W','07J','06V','06L','07K','06M','07H','06T','06Q','07G','99E','99F','99G','06K','06F','06N','06P','04F','03T','04D','99D','04Q','13Q')
           AND DLE.Doc_Ref_Ptr->Hospital_Doctor_Code NOT IN('BIRM','BRIS','GOSH','LEEDS','LIV','MAN','NEW','OXF','POR','SCOT','SET','SHEFF','SWT','WALES')
           AND DLE.Doc_Ref_Ptr->Hospital_Doctor_Code <> PC.Primary_Care_Trust->Code
           ) THEN 'Enter external screening lab code'
+# If we know the CCG for the GP practice, use that instead
 WHEN (PC.Primary_Care_Trust->Code IS NULL
           AND HCP.PCTCode IN('06H','06Y','06W','07J','06V','06L','07K','06M','07H','06T','06Q','07G','99E','99F','99G','06K','06F','06N','06P','04F','03T','04D','99D','04Q','13Q')
           AND DLE.Doc_Ref_Ptr->Hospital_Doctor_Code <> HCP.PCTCode 
           ) THEN HCP.PCTCode
+# If all else fails, refer to a clinical scientist to decide
 ELSE 'Refer to clinical scientist'
 END
 AS RequiredCode
@@ -72,6 +78,7 @@ WHERE
 A.RQ_PTR->PMI_LINK->INT_UN = P.PATIENTIRN
 AND A.DAY_BOOK_DATE >= '<%Date1|Start Date|T-7|D%>'
 AND A.DAY_BOOK_DATE <= '<%Date2|End Date|T|D%>'
+### Exclusions for external quality assessment samples
 AND A.RQ_PTR->PMI_LINK-> NAME NOT LIKE 'UK NEQAS%'
 AND A.RQ_PTR->PMI_LINK-> NAME NOT LIKE 'CDC %'
 AND
