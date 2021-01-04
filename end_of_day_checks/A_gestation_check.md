@@ -1,6 +1,13 @@
 ## A - Gestation check
 
-### Requirements
+### Background
+[Newborn screening for congenital hypothyroidism](https://www.gov.uk/government/publications/congenital-hypothyroidism-screening-laboratory-handbook) relies on the measurement of Thyroid Stimulating Hormone (TSH). However, interpretation of results also [depends on the baby's gestational age](https://www.gov.uk/government/publications/congenital-hypothyroidism-screening-laboratory-handbook/a-laboratory-guide-to-newborn-blood-spot-screening-in-the-uk-for-congenital-hypothyroidism#pre-term), and a repeat sample is requested for babies who are born at < 32 weeks gestation.
+
+Laboratories receive demographic information on a baby's gestational age on the blood spot sample or via the [Newborn Blood Spot Screening Failsafe Solution](https://www.gov.uk/government/publications/newborn-blood-spot-screening-failsafe-solution-user-guide/newborn-blood-spot-screening-failsafe-solution-user-guide#:~:text=The%20NBSFS%20is%20an%20IT,in%20the%20laboratory%20on%20time).
+
+This information may be incorrectly recorded by the midwife or incorrectly transcribed from the blood spot sample.
+
+Since almost all babies who are born at less than 32 weeks gestation have a birth weight of less than 2000g, the report aims to detect potentially incorrectly recorded gestation by comparing birth weight and gestational age.
 
 ### SQL
 
