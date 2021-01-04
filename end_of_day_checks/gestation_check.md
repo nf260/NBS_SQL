@@ -1,4 +1,4 @@
-## A - Gestation check
+## Gestation check
 
 ### Background
 [Newborn screening for congenital hypothyroidism](https://www.gov.uk/government/publications/congenital-hypothyroidism-screening-laboratory-handbook) relies on the measurement of Thyroid Stimulating Hormone (TSH). However, interpretation of results also [depends on the baby's gestational age](https://www.gov.uk/government/publications/congenital-hypothyroidism-screening-laboratory-handbook/a-laboratory-guide-to-newborn-blood-spot-screening-in-the-uk-for-congenital-hypothyroidism#pre-term), and a repeat sample is requested for babies who are born at < 32 weeks gestation.
