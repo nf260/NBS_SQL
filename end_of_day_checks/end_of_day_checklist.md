@@ -1,6 +1,12 @@
 # End of day checklist
 
-## Requirements
+## Background
+
+Information recorded in the laboratory IT system must be accurate to ensure that every child’s newborn blood spot screening result is correctly interpreted and reported. Previously, a list of data from around 100 samples was printed at the end of every day and manually checked to identify errors. This process was time consuming and errors were often missed.
+
+The end of day checklist lists several custom SQL reports that were developed to identify potential data entry errors. This system targeted checking to a small subset of samples and improved the efficiency and accuracy of error detection.
+
+The end of day checklist provides some basic information on the number of samples received in total, and from each maternity unit that usually sends samples to the Cambridge laboratory (to identify any transit issues)
 
 ## SQL
 
@@ -26,7 +32,3 @@ WHERE
 A.DAY_BOOK_DATE = '<%Date|Date|T|D%>'
 
 ``` 
-
-## Output
-
-* Insert file here
